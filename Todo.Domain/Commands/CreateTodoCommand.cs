@@ -9,10 +9,10 @@ namespace Todo.Domain.Commands
   {
     public CreateTodoComand() { }
 
-    public CreateTodoComand(string title, bool done, DateTime date, string user)
+    public CreateTodoComand(string title, DateTime date, string user)
     {
       Title = title;
-      Done = done;
+      Done = false;
       Date = date;
       User = user;
     }
@@ -24,11 +24,11 @@ namespace Todo.Domain.Commands
 
     public void Validate()
     {
-      var a = new Notification("", "");
-      var t = new Contract()
+      AddNotifications(
+        new Contract()
               .Requires()
               .HasMinLen(Title, 3, "Title", "Por favor, descreva melhor esta tarefa")
-              .HasMinLen(User, 6, "User", "usuário invalido");
+              .HasMinLen(User, 6, "User", "usuário invalido"));
 
     }
   }
