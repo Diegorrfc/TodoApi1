@@ -1,3 +1,4 @@
+using System;
 using Todo.Domain.Entities;
 
 namespace Todo.Domain.Repositories
@@ -7,5 +8,6 @@ namespace Todo.Domain.Repositories
   {
     void Create(TodoItem todo);
     void Update(TodoItem todo);
+    TodoItem GetByIdAndUser(Guid id, string user);
   }
 }
