@@ -7,7 +7,7 @@ using Todo.Domain.Repositories;
 namespace Todo.Domain.Handlers
 {
 
-  public class Handler : IHandler<CreateTodoComand>
+  public class Handler : IHandler<CreateTodoCommand>
   {
     private readonly ITodoRepository _repository;
     public Handler(ITodoRepository todorepository)
@@ -15,8 +15,9 @@ namespace Todo.Domain.Handlers
       _repository = todorepository;
     }
 
-    public ICommandResult Handle(CreateTodoComand command)
+    public ICommandResult Handle(CreateTodoCommand command)
     {
+      command.Validate();
       if (!command.Valid)
         return new GenericCommandResult(false, "Houve um erro na solicitação", command.Notifications);
 
