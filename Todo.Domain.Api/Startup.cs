@@ -30,6 +30,7 @@ namespace Todo.Domain.Api
       // banco n daria certo pois a conexão ficaria ativa
 
       services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+      // services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
       services.AddTransient<ITodoRepository, TodoRepository>();
       services.AddTransient<TodoHandler, TodoHandler>();
     }
