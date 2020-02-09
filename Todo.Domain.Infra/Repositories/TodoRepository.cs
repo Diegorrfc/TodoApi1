@@ -1,15 +1,25 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Todo.Domain.Entities;
+using Todo.Domain.Infra.Context;
 using Todo.Domain.Repositories;
 
-namespace Todo.Domain.Tests.Repositories
+namespace Todo.Domain.Infra.Repositories
 {
-  public class TodoFakeRepository : ITodoRepository
+  public class TodoRepository : ITodoRepository
   {
+    private readonly DataContext _context;
+
+
+    public TodoRepository(DataContext context)
+    {
+      _context = context;
+    }
     public void Create(TodoItem todo)
     {
-
+      _context.Todos.Add(todo);
+      _context.SaveChanges();
     }
 
     public IEnumerable<TodoItem> GelAllUser(string user)
@@ -29,7 +39,7 @@ namespace Todo.Domain.Tests.Repositories
 
     public TodoItem GetByIdAndUser(Guid id, string user)
     {
-      return new TodoItem("novo Item", DateTime.Now, "Usuário da base");
+      throw new NotImplementedException();
     }
 
     public IEnumerable<TodoItem> GetByPeriod(string user, DateTime date, bool done)
@@ -39,6 +49,8 @@ namespace Todo.Domain.Tests.Repositories
 
     public void Update(TodoItem todo)
     {
+      _context.Entry(todo).State = EntityState.Modified;
+      _context.SaveChanges();
 
     }
   }

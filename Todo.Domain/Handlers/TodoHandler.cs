@@ -7,10 +7,10 @@ using Todo.Domain.Repositories;
 namespace Todo.Domain.Handlers
 {
 
-  public class Handler : IHandler<CreateTodoCommand>, IHandler<UpdateTodoCommand>, IHandler<MarkTodoAsDoneCommand>, IHandler<MarkAsUndoneCommand>
+  public class TodoHandler : IHandler<CreateTodoCommand>, IHandler<UpdateTodoCommand>, IHandler<MarkTodoAsDoneCommand>, IHandler<MarkAsUndoneCommand>
   {
     private readonly ITodoRepository _repository;
-    public Handler(ITodoRepository todorepository)
+    public TodoHandler(ITodoRepository todorepository)
     {
       _repository = todorepository;
     }
