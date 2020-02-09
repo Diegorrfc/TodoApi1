@@ -46,6 +46,12 @@ namespace Todo.Domain.Api
 
       app.UseRouting();
 
+      app.UseCors(X => X
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowAnyOrigin()
+      );
+      app.UseAuthentication();
       app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>
