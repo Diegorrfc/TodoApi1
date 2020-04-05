@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Todo.Domain.Handlers;
 using Todo.Domain.Infra.Context;
 using Todo.Domain.Infra.Repositories;
@@ -33,6 +35,20 @@ namespace Todo.Domain.Api
       // services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
       services.AddTransient<ITodoRepository, TodoRepository>();
       services.AddTransient<TodoHandler, TodoHandler>();
+
+      
+     
+      services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt => {
+          opt.Authority = "urlgoogle",
+          opt.TokenValidationParameters = new TokenValidationParameters
+          {
+              ValidateIssuer = true,
+              ValidIssuer = "urlgoogle",
+              ValidateAudience = true,
+              ValidAudience = "todo-4a162",
+              ValidateLifetime = true
+          };
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
